@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travis Claypool</title>
+  <meta name="description" content="Travis Claypool — Builds, projects, and unmanned systems work.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Travis Claypool">
+  <meta property="og:description" content="Builds, projects, and unmanned systems work.">
+  <meta property="og:image" content="https://travisclaypool.com/img/led-book-lit.jpg">
+  <meta property="og:url" content="https://travisclaypool.com/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Travis Claypool">
+  <meta name="twitter:description" content="Builds, projects, and unmanned systems work.">
+  <meta name="twitter:image" content="https://travisclaypool.com/img/led-book-lit.jpg">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .video-bg video { display: none; }
+      .video-bg-poster { display: block; }
+      .shots img { transition: none; }
+      .shots img:hover { transform: none; }
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Fixed video background ── */
+    .video-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      background: #1a1a1a;
+    }
+
+    .video-bg video,
+    .video-bg-poster {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .video-bg-poster { display: none; }
+
+    /* ── Hero: identity on the left, contact on the right, video shows through ── */
+    .rail {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      min-height: 100vh;
+      padding: 3rem 5vw 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .rail-left, .rail-right {
+      width: 440px;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.25rem;
+    }
+
+    /* ── Shared frosted card ── */
+    .card {
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
+      padding: 2.5rem;
+    }
+
+    /* ── Identity ── */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #dbeafe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #1d4ed8;
+      flex-shrink: 0;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: #111;
+      margin-bottom: 0.15rem;
+    }
+
+    .role {
+      color: #777;
+      font-size: 0.95rem;
+    }
+
+    .bio {
+      color: #333;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .profile-links {
+      margin-top: 0.35rem;
+    }
+
+    .profile-links a {
+      font-size: 0.875rem;
+      color: #0066cc;
+      text-decoration: none;
+    }
+
+    .profile-links a:hover { text-decoration: underline; }
+
+    hr {
+      border: none;
+      border-top: 1px solid rgba(0, 0, 0, 0.12);
+      margin: 1.5rem 0;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: #888;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .about-body {
+      color: #333;
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    .about-body p + p { margin-top: 0.9rem; }
+
+    .scroll-hint {
+      font-size: 0.75rem;
+      color: #666;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-align: center;
+      text-decoration: none;
+      padding: 0.3rem;
+    }
+
+    .scroll-hint:hover { color: #111; }
+
+    /* ── Form ── */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    form label {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #444;
+      gap: 0.3rem;
+    }
+
+    form input, form textarea {
+      font: inherit;
+      font-size: 0.875rem;
+      padding: 0.5rem 0.7rem;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 6px;
+      color: #111;
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    form input:focus, form textarea:focus {
+      outline: none;
+      border-color: #0066cc;
+      background: #fff;
+    }
+
+    form textarea { resize: vertical; min-height: 90px; }
+
+    form button {
+      align-self: flex-start;
+      margin-top: 0.25rem;
+      padding: 0.5rem 1.4rem;
+      background: #111;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font: inherit;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    form button:hover { background: #333; }
+
+    .honeypot {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    /* ── Full-width gallery (scrolls in below the hero) ── */
+    .gallery {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.62);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(255, 255, 255, 0.6);
+      padding: 4.5rem 4vw 5.5rem;
+      text-align: center;
+    }
+
+    .gallery-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    .gallery-title {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #777;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── Two-column layout on desktop; projects flow and balance across columns ── */
+    .gallery-columns {
+      column-count: 2;
+      column-gap: 3rem;
+    }
+
+    .project {
+      margin-bottom: 3.5rem;
+      break-inside: avoid;
+      -webkit-column-break-inside: avoid;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+    .project:last-child { margin-bottom: 0; }
+
+    .project h3 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #111;
+      margin-bottom: 0.35rem;
+    }
+
+    .project p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #444;
+      max-width: 65ch;
+      margin: 0 auto 1.1rem;
+    }
+
+    .shots {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    /* single-image projects stay a reasonable size instead of filling the row */
+    .shots.solo {
+      grid-template-columns: minmax(0, 520px);
+      justify-content: center;
+      margin: 0 auto;
+    }
+
+    .shots picture { display: block; }
+
+    .shots img, .shots video {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+      background: rgba(0,0,0,0.05);
+    }
+
+    .shots img {
+      cursor: pointer;
+      transition: filter 0.15s ease, transform 0.15s ease;
+    }
+
+    .shots img:hover { filter: brightness(1.07); transform: translateY(-2px); }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 4vh 4vw;
+      cursor: zoom-out;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 1.25rem;
+      right: 1.5rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .lightbox-close:hover { background: rgba(255, 255, 255, 0.3); }
+
+    /* ── Mobile: video peeks at top, everything stacks full width ── */
+    @media (max-width: 800px) {
+      .rail {
+        width: 100%;
+        min-height: 0;
+        flex-direction: column;
+        padding: 60vh 1.25rem 2rem;
+        justify-content: flex-start;
+        gap: 1rem;
+      }
+      .rail-left, .rail-right {
+        width: 100%;
+        gap: 1rem;
+      }
+      .card { padding: 2rem 1.5rem; }
+
+      .gallery { padding: 2.5rem 1.25rem 3rem; }
+      .gallery-columns { column-count: 1; }
+      .project { margin-bottom: 2.5rem; padding: 1.25rem; }
+      .project h3 { font-size: 1.4rem; }
+      .shots { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+      .shots.solo { grid-template-columns: 1fr; }
+      .shots img, .shots video { border-radius: 6px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="video-bg" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="metadata">
+      <source src="/video/bg.mp4" type="video/mp4">
+    </video>
+    <picture>
+      <source srcset="img/geophysical-integration.webp" type="image/webp">
+      <img class="video-bg-poster" src="img/geophysical-integration.jpg" alt="" width="1050" height="1400">
+    </picture>
+  </div>
+
+  <!-- ── Hero: identity + about on the left, contact on the right ── -->
+  <div class="rail">
+
+    <div class="rail-left">
+      <div class="card">
+        <div class="header">
+          <div class="avatar">TC</div>
+          <div>
+            <h1>Travis Claypool</h1>
+            <p class="role">Man, Myth, Legend</p>
+          </div>
+        </div>
+
+        <p class="bio">Specializing in keeping up.</p>
+        <p class="profile-links"><a href="https://www.linkedin.com/in/travis-claypool/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
+
+        <hr>
+
+        <p class="section-label">About</p>
+        <div class="about-body">
+          <p>I've always been drawn to making things — figuring out how they work, taking them apart, building them back up. That instinct has threaded through everything: years in sales, time in the classroom, and countless hours hands-on with aircraft and payloads.</p>
+          <p>Teaching turned out to be one of the best engineering educations I ever got. There's nothing like having to explain a system to a room full of students to find out how well you actually understand it.</p>
+          <p>These days the focus is unmanned systems — making them smarter, more capable, and more useful. I believe in open-source development, shared knowledge, and the idea that the best work comes from people who aren't afraid to get their hands dirty.</p>
+          <p>And sometimes cause a little trouble in the process.</p>
+        </div>
+      </div>
+
+      <a class="scroll-hint" href="#builds">Builds &amp; Projects ↓</a>
+    </div>
+
+    <div class="rail-right">
+      <div class="card">
+        <p class="section-label">Get in touch</p>
+        <form action="/submit" method="POST">
+          <label>
+            Name
+            <input type="text" name="name" required maxlength="200" placeholder="Your name">
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" required maxlength="200" placeholder="you@example.com">
+          </label>
+          <label>
+            Message
+            <textarea name="message" required maxlength="5000" rows="4" placeholder="What's on your mind?"></textarea>
+          </label>
+          <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Full-width project gallery ── -->
+  <section class="gallery" id="builds">
+   <div class="gallery-inner">
+    <p class="gallery-title">Builds &amp; Projects</p>
+
+    <div class="gallery-columns">
+    <div class="project">
+      <h3>360° GoPro Rig</h3>
+      <p>This was early in the days of 360° video, before Insta360 and its peers made it easy. I designed several generations of rig using up to eight GoPros, each capturing its own stream, later stitched together into a single 360° video. I also built a wheeled dolly and a robotically controlled dolly so I could shoot 360° footage without a person showing up in frame holding the camera. More of it is on my YouTube channel — <a href="https://www.youtube.com/@travisclaypool" target="_blank" rel="noopener">youtube.com/@travisclaypool</a>.</p>
+      <div class="shots">
+        <picture>
+        <source srcset="img/gopro-rig-stand.webp" type="image/webp">
+        <img src="img/gopro-rig-stand.jpg" alt="GoPro 360 cube on a rolling stand" width="1039" height="1400" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/gopro-rig-car.webp" type="image/webp">
+        <img src="img/gopro-rig-car.jpg" alt="GoPro 360 rig mounted in a car" width="1039" height="1400" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/gopro-rig-livingroom.webp" type="image/webp">
+        <img src="img/gopro-rig-livingroom.jpg" alt="GoPro 360 cube on a monopod" width="1400" height="1039" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/gopro-rig-dual.webp" type="image/webp">
+        <img src="img/gopro-rig-dual.jpg" alt="Dual GoPro handheld rig" width="1400" height="1039" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/gopro-rig-cluster.webp" type="image/webp">
+        <img src="img/gopro-rig-cluster.jpg" alt="GoPro camera cluster" width="1400" height="1039" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/drive-base.webp" type="image/webp">
+        <img src="img/drive-base.jpg" alt="Motorized aluminum drive base for the camera rig" width="1400" height="1050" loading="lazy">
+      </picture>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>AmpMe Charging Station</h3>
+      <p>I was brought in to help with a guerrilla marketing campaign for AmpMe. I designed and built a pop-up projector screen viewable from both sides, along with the frame to mount it on a truck. The screen itself was a translucent shower curtain.</p>
+      <div class="shots">
+        <picture>
+        <source srcset="img/ampme-truck.webp" type="image/webp">
+        <img src="img/ampme-truck.jpg" alt="Projection screen mounted on a pickup truck" width="1039" height="1400" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/ampme-crowd.webp" type="image/webp">
+        <img src="img/ampme-crowd.jpg" alt="AmpMe charging station with a crowd at night" width="1400" height="1039" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/ampme-team.webp" type="image/webp">
+        <img src="img/ampme-team.jpg" alt="Team in front of the AmpMe charging station" width="1400" height="1039" loading="lazy">
+      </picture>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>WiFi Cactus</h3>
+      <p>I designed and taught a TechShop class called "The Connected Cactus." Students walked in with little to no experience in plants or electronics and walked out with a small cactus that tweeted whenever it got thirsty, built around an ESP8266 and a soil-moisture sensor. Taught while TechShop was still open, before it closed its doors.</p>
+      <div class="shots solo">
+        <picture>
+        <source srcset="img/wifi-cactus.webp" type="image/webp">
+        <img src="img/wifi-cactus.jpg" alt="Cactus with a soil moisture sensor and ESP8266 board" width="1039" height="1400" loading="lazy">
+      </picture>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>The Glowing Dictionary</h3>
+      <p>A hollowed-out dictionary that reveals an infinity mirror when opened — lighting up on open, going dark on close, with a new light pattern each time. Battery-powered and USB-rechargeable. It turned out so well that I put it on display at an event, and someone stole it.</p>
+      <div class="shots">
+        <picture>
+        <source srcset="img/led-book-lit.webp" type="image/webp">
+        <img src="img/led-book-lit.jpg" alt="Dictionary glowing blue from embedded LEDs" width="1400" height="1039" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/led-book-strips.webp" type="image/webp">
+        <img src="img/led-book-strips.jpg" alt="Addressable LED strips inside the hollowed book" width="1400" height="1039" loading="lazy">
+      </picture>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>Live-Edge Coffee Table</h3>
+      <p>One of several carpentry projects — a live-edge slab on hairpin legs. I've had a lot of fun with resin and live-edge tables since; more photos coming soon.</p>
+      <div class="shots solo">
+        <picture>
+        <source srcset="img/live-edge-table.webp" type="image/webp">
+        <img src="img/live-edge-table.jpg" alt="Live-edge wood coffee table on hairpin legs" width="1400" height="1039" loading="lazy">
+      </picture>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>Branded Bread</h3>
+      <p>A from-scratch loaf out of the bread maker, then a laser engraver toasted a message onto the crust — plus guidelines for cutting the perfect slice.</p>
+      <div class="shots solo">
+        <picture>
+        <source srcset="img/branded-bread.webp" type="image/webp">
+        <img src="img/branded-bread.jpg" alt="Loaf of bread branded 'Made From Scratch'" width="1400" height="1036" loading="lazy">
+      </picture>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>Team Spirit Metalwork</h3>
+      <p>Giveaway items I made for the local FFA auction: plasma-cut college logos welded to horseshoes and rebar, doubling as drink holders for the beach or a yard game of horseshoes.</p>
+      <div class="shots">
+        <picture>
+        <source srcset="img/metal-finished-1.webp" type="image/webp">
+        <img src="img/metal-finished-1.jpg" alt="Finished painted horseshoe team pieces" width="1400" height="1050" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/metal-finished-2.webp" type="image/webp">
+        <img src="img/metal-finished-2.jpg" alt="Horseshoe team pieces lined up" width="1400" height="1050" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/metal-stakes.webp" type="image/webp">
+        <img src="img/metal-stakes.jpg" alt="Rebar garden stakes topped with team logos" width="1400" height="1050" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/metal-fab-1.webp" type="image/webp">
+        <img src="img/metal-fab-1.jpg" alt="Metal pieces in progress on a steel table" width="1400" height="1039" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/metal-fab-2.webp" type="image/webp">
+        <img src="img/metal-fab-2.jpg" alt="Cut metal team letters in the shop" width="1400" height="1039" loading="lazy">
+      </picture>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>Dual Extruder Upgrade</h3>
+      <p>A customer's single-extruder printer, upgraded to dual for multi-material prints. Designed the new mounts in Fusion 360 around a BondTech extruder and E3D hotend, printed the parts, and got it dialed in.</p>
+      <div class="shots">
+        <picture>
+        <source srcset="img/extruder-bondtech.webp" type="image/webp">
+        <img src="img/extruder-bondtech.jpg" alt="BondTech extruder and E3D hotend assembly" width="1050" height="1400" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/extruder-design.webp" type="image/webp">
+        <img src="img/extruder-design.jpg" alt="Extruder design in Fusion 360 alongside the physical build" width="1400" height="1050" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/extruder-mounted.webp" type="image/webp">
+        <img src="img/extruder-mounted.jpg" alt="Dual extruder mounted on the printer carriage" width="1050" height="1400" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/extruder-installed.webp" type="image/webp">
+        <img src="img/extruder-installed.jpg" alt="Extruder installed and printing" width="1400" height="1050" loading="lazy">
+      </picture>
+
+
+
+
+
+
+
+        <picture>
+        <source srcset="img/datalogger-enclosure.webp" type="image/webp">
+        <img src="img/datalogger-enclosure.jpg" alt="Black 3D-printed cylindrical enclosure on a workbench" width="1050" height="1400" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/datalogger-open.webp" type="image/webp">
+        <img src="img/datalogger-open.jpg" alt="Dual-extruder printer mid-print on a green build plate" width="1400" height="1050" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/halloween-schoolbus.webp" type="image/webp">
+        <img src="img/halloween-schoolbus.jpg" alt="Bondtech dual extruders mounted above a green print bed" width="1050" height="1400" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/halloween-rocket-bubbles.webp" type="image/webp">
+        <img src="img/halloween-rocket-bubbles.jpg" alt="Dual-extruder printer printing a black mechanical part" width="1050" height="1400" loading="lazy">
+      </picture>
+      </div>
+    </div>
+
+
+    <div class="project">
+      <h3>Carved Pumpkins</h3>
+      <p>Custom pumpkin carvings — an RDC logo for a trade show booth and a Takuache Trokiante design carved in relief on a whole pumpkin.</p>
+      <div class="shots">
+        <picture>
+        <source srcset="img/extruder-print-fail.webp" type="image/webp">
+        <img src="img/extruder-print-fail.jpg" alt="Carved pumpkin with RDC logo at a trade show booth" width="1400" height="1050" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/extruder-print-mess.webp" type="image/webp">
+        <img src="img/extruder-print-mess.jpg" alt="Pumpkin carved with Takuache Trokiante design in relief" width="1050" height="1400" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/extruder-dual-hotends.webp" type="image/webp">
+        <img src="img/extruder-dual-hotends.jpg" alt="Cleaning up a carved pumpkin with an Austin 3D Printing logo" width="1050" height="1400" loading="lazy">
+      </picture>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>Ducted Fan</h3>
+      <p>3D-printed drone fan ducts and a ducted fan housing with a five-bladed impeller — designed as printable assemblies for UAV propulsion.</p>
+      <div class="shots">
+        <picture>
+        <source srcset="img/extruder-ring-print-1.webp" type="image/webp">
+        <img src="img/extruder-ring-print-1.jpg" alt="Pair of 3D-printed drone fan duct rings" width="1050" height="1400" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/extruder-ring-print-2.webp" type="image/webp">
+        <img src="img/extruder-ring-print-2.jpg" alt="Stacked 3D-printed drone fan duct rings" width="1400" height="1050" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/extruder-ducted-fan.webp" type="image/webp">
+        <img src="img/extruder-ducted-fan.jpg" alt="Black 3D-printed ducted fan with five-bladed impeller" width="1050" height="1400" loading="lazy">
+      </picture>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>Tiny Forklift</h3>
+      <p>A palm-sized 3D-printed forklift — complete with forks, cabin, and wheels.</p>
+      <div class="shots solo">
+        <picture>
+        <source srcset="img/extruder-firefly-print.webp" type="image/webp">
+        <img src="img/extruder-firefly-print.jpg" alt="Tiny 3D-printed forklift sitting in an open palm" width="1050" height="1400" loading="lazy">
+      </picture>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>Touch-Reactive LED Wall Installation</h3>
+      <p>Conductive paint and copper tape traced across the wall as circuit-board artwork — touch anywhere along a trace and the logo lit up in LEDs. Custom PCBs built around an Adafruit MPR121 capacitive touch sensor drove the whole thing.</p>
+      <div class="shots">
+        <picture>
+        <source srcset="img/touch-wall-final.webp" type="image/webp">
+        <img src="img/touch-wall-final.jpg" alt="Illuminated logo on the finished wall installation" width="1400" height="688" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/touch-wall-install.webp" type="image/webp">
+        <img src="img/touch-wall-install.jpg" alt="Installing the wall traces from a ladder" width="1400" height="1050" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/touch-wall-controller.webp" type="image/webp">
+        <img src="img/touch-wall-controller.jpg" alt="Controller panel with power supply and touch board" width="1400" height="1050" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/touch-wall-pcb.webp" type="image/webp">
+        <img src="img/touch-wall-pcb.jpg" alt="Custom PCB with MPR121 capacitive touch breakout" width="1050" height="1400" loading="lazy">
+      </picture>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>Walk / Don't Walk Signs</h3>
+      <p>I bid on an auction for a couple of pedestrian crossing signals and it turned out to be a pallet of about forty. I wired up a bunch so you could plug them in and flip a switch to toggle between walk and don't walk.</p>
+      <div class="shots">
+        <picture>
+        <source srcset="img/touch-wall-walk.webp" type="image/webp">
+        <img src="img/touch-wall-walk.jpg" alt="Pedestrian signal lit up with the walking figure" width="1050" height="1400" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/touch-wall-stop.webp" type="image/webp">
+        <img src="img/touch-wall-stop.jpg" alt="Pedestrian signal lit up with the don't walk hand" width="1050" height="1400" loading="lazy">
+      </picture>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>Aransas Pass Screen Printing</h3>
+      <p>A parody of the Aransas Pass water tower — the real one has a fish, mine has a mosquito. Anyone who's spent a summer down there knows why. Made for friends and family.</p>
+      <div class="shots">
+        <picture>
+        <source srcset="img/aransas-press.webp" type="image/webp">
+        <img src="img/aransas-press.jpg" alt="Screen printing press with the mosquito water tower design" width="1050" height="1400" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/aransas-shirts.webp" type="image/webp">
+        <img src="img/aransas-shirts.jpg" alt="Finished Aransas Pass parody shirts" width="1050" height="1400" loading="lazy">
+      </picture>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>Laser-Cut Mask Patterns</h3>
+      <p>Cut fabric mask blanks on my laser cutter in the early days of the pandemic, bundled them up, and handed them off to a team of church folks who sewed them into finished masks.</p>
+      <div class="shots">
+        <picture>
+        <source srcset="img/masks-cutting.webp" type="image/webp">
+        <img src="img/masks-cutting.jpg" alt="Laser-cut yellow fabric mask pieces on the kitchen counter" width="1050" height="1400" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/masks-stack.webp" type="image/webp">
+        <img src="img/masks-stack.jpg" alt="Stack of laser-cut mask pieces" width="1400" height="1050" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/masks-bundled.webp" type="image/webp">
+        <img src="img/masks-bundled.jpg" alt="Bundled mask kits ready for sewing" width="1400" height="1050" loading="lazy">
+      </picture>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>Micro FPV Quadcopter</h3>
+      <p>91 grams of EMAX motors, a runcam, and questionable judgment. Small enough to fly indoors, fast enough to regret it.</p>
+      <div class="shots solo">
+        <picture>
+        <source srcset="img/fpv-quad-scale.webp" type="image/webp">
+        <img src="img/fpv-quad-scale.jpg" alt="Micro FPV quadcopter on a kitchen scale reading 91 grams" width="1400" height="1050" loading="lazy">
+      </picture>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>Geophysical Payload Integration</h3>
+      <p>I work with drone manufacturers across different airframes — multirotor, fixed-wing, VTOL — to integrate geophysical survey payloads. That means mechanical mounting, power and cabling, sensor placement, and flight-planning workflows so magnetometers, GPR, and other instruments collect clean, usable data in the field.</p>
+      <div class="shots solo">
+        <picture>
+        <source srcset="img/geophysical-integration.webp" type="image/webp">
+        <img src="img/geophysical-integration.jpg" alt="UAV with geophysical survey payload being prepped for flight" width="1050" height="1400" loading="lazy">
+      </picture>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>Halloween Cardboard Builds</h3>
+      <p>A cardboard megabox with three lives. It arrived holding a hot water heater, then got skinned into a wearable personal-space bubble at the peak of the pandemic — climb inside, head through the hole on top, and use the sticks tipped with tiny yellow virus balls to keep everyone six feet away. Finally it became a Magic School Bus–style rocket, complete with tinsel-lined nozzles that blew actual bubbles. Also in the frame: a Kraft Mac &amp; Cheese costume built for a friend.</p>
+      <div class="shots">
+        <picture>
+        <source srcset="img/halloween-personal-space.webp" type="image/webp">
+        <img src="img/halloween-personal-space.jpg" alt="Personal-space bubble box reading 'Warning: Maintain Six Feet'" width="1400" height="1050" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/halloween-rocket-bubbles-video.webp" type="image/webp">
+        <img src="img/halloween-rocket-bubbles-video.jpg" alt="Magic School Bus rocket with tinsel-lined nozzles" width="1243" height="784" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/halloween-mac-cheese.webp" type="image/webp">
+        <img src="img/halloween-mac-cheese.jpg" alt="Kraft Mac and Cheese costume built for a friend" width="1400" height="1050" loading="lazy">
+      </picture>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>Cargo Datalogger</h3>
+      <p>I was asked to build a data logger that could record accelerometer, gyro, and GPS data for hours on a single charge and save everything to an SD card. Built around an Arduino Mega and a u-blox M8N GPS module, with an MPU-9250 IMU for motion — all in a weatherproof enclosure built for a cargo payload.</p>
+      <div class="shots">
+        <picture>
+        <source srcset="img/halloween-nozzles-painted.webp" type="image/webp">
+        <img src="img/halloween-nozzles-painted.jpg" alt="Sealed enclosure with GPS antenna and BNC connectors" width="1400" height="1050" loading="lazy">
+      </picture>
+        <picture>
+        <source srcset="img/halloween-rocket-sketch.webp" type="image/webp">
+        <img src="img/halloween-rocket-sketch.jpg" alt="Open enclosure showing the Arduino Mega, GPS module, and internal wiring" width="1400" height="1050" loading="lazy">
+      </picture>
+      </div>
+    </div>
+    </div>
+
+   </div>
+  </section>
+
+  <!-- ── Lightbox ── -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview" aria-hidden="true">
+    <button type="button" class="lightbox-close" aria-label="Close image preview">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <script>
+    (function () {
+      var lb = document.getElementById('lightbox');
+      var lbImg = document.getElementById('lightbox-img');
+      var closeBtn = lb.querySelector('.lightbox-close');
+      var lastFocused = null;
+
+      function openLightbox(img) {
+        lastFocused = document.activeElement;
+        lbImg.src = img.currentSrc || img.src;
+        lbImg.alt = img.alt;
+        lb.classList.add('open');
+        lb.removeAttribute('aria-hidden');
+        closeBtn.focus();
+      }
+
+      function closeLightbox() {
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden', 'true');
+        lbImg.src = '';
+        if (lastFocused) lastFocused.focus();
+      }
+
+      document.querySelectorAll('.shots img').forEach(function (img) {
+        img.addEventListener('click', function () { openLightbox(img); });
+      });
+
+      closeBtn.addEventListener('click', closeLightbox);
+
+      lb.addEventListener('click', function (e) {
+        if (e.target === lb) closeLightbox();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && lb.classList.contains('open')) {
+          closeLightbox();
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

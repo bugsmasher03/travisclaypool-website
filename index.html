@@ -24,7 +24,6 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .video-bg video { display: none; }
-      .video-bg-poster { display: block; }
       .shots img { transition: none; }
       .shots img:hover { transform: none; }
     }
@@ -46,15 +45,12 @@
       background: #1a1a1a;
     }
 
-    .video-bg video,
-    .video-bg-poster {
+    .video-bg video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center top;
     }
-
-    .video-bg-poster { display: none; }
 
     /* ── Hero: identity on the left, contact on the right, video shows through ── */
     .rail {
@@ -398,10 +394,6 @@
     <video autoplay muted loop playsinline preload="metadata">
       <source src="/video/bg.mp4" type="video/mp4">
     </video>
-    <picture>
-      <source srcset="img/geophysical-integration.webp" type="image/webp">
-      <img class="video-bg-poster" src="img/geophysical-integration.jpg" alt="" width="1050" height="1400">
-    </picture>
   </div>
 
   <!-- ── Hero: identity + about on the left, contact on the right ── -->
@@ -772,17 +764,6 @@
         <picture>
         <source srcset="img/fpv-quad-scale.webp" type="image/webp">
         <img src="img/fpv-quad-scale.jpg" alt="Micro FPV quadcopter on a kitchen scale reading 91 grams" width="1400" height="1050" loading="lazy">
-      </picture>
-      </div>
-    </div>
-
-    <div class="project">
-      <h3>Geophysical Payload Integration</h3>
-      <p>I get to work with cool people and cool drones — integrating survey payloads across all kinds of airframes.</p>
-      <div class="shots solo">
-        <picture>
-        <source srcset="img/geophysical-integration.webp" type="image/webp">
-        <img src="img/geophysical-integration.jpg" alt="UAV with geophysical survey payload being prepped for flight" width="1050" height="1400" loading="lazy">
       </picture>
       </div>
     </div>
